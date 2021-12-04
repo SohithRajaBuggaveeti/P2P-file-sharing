@@ -1,8 +1,22 @@
-public class RemotePeerInfo {
+import java.util.Comparator;
+
+public class RemotePeerInfo implements Comparator<RemotePeerInfo>
+{
+    public final boolean comparator=false;
     public String peerId;
     public String peerAddress;
     public String peerPort;
-
+    public int isFirstPeer;
+    public double streamRate = 0;
+    public int isInterested = 1;
+    public int isPreferredNeighbor = 0;
+    public int isOptUnchokedNeighbor = 0;
+    public int isChoked = 1;
+    public PayLoadData payloadData;
+    public int state = -1;
+    public int peerIndex;
+    public int isCompleted = 0;
+    public int isHandShake = 0;
     public String getPeerId() {
         return peerId;
     }
@@ -43,26 +57,41 @@ public class RemotePeerInfo {
         this.peerPos = peerPos;
     }
 
-    public boolean isFirst() {
-        return isFirst;
-    }
-
-    public void setFirst(boolean first) {
-        isFirst = first;
-    }
 
     public boolean hasFile;
     public int peerPos;
     public boolean isFirst;
-    public RemotePeerInfo(String pId, String pAddress, String pPort,boolean hFile,int i) {
+    public RemotePeerInfo(String pId, String pAddress, String pPort,boolean hFile) {
         peerId = pId;
         peerAddress = pAddress;
         peerPort = pPort;
         hasFile=hFile;
-        peerPos=i;
-        if(hasFile)
+
+    }
+    public int compareTo(RemotePeerInfo remotePeerInfo)
+    {
+        return Double.compare(this.streamRate,remotePeerInfo.streamRate);
+    }
+    public int compare(RemotePeerInfo p1,RemotePeerInfo p2)
+    {
+        if(p1==null && p2==null)
+            return 0;
+        if(p1==null)
         {
-            isFirst=true;
+            return 1;
+        }
+        if(p2==null)
+        {
+            return -1;
+        }
+        if(comparator)
+        {
+            return p1.compareTo(p2);
+        }
+        else
+        {
+            return p2.compareTo(p1);
         }
     }
+
 }

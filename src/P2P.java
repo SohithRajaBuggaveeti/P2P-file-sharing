@@ -1,38 +1,97 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.*;
+
 
 public class P2P
 {
     public static HashMap<String,RemotePeerInfo> remotePeerInfoHashMap=new HashMap<>();
     public  static HashMap<String,RemotePeerInfo> preferredNeighboursInfoHashMap=new HashMap<>();
     static  Logger l;
+    public static PayLoadData currentDataPayLoad=null;
     static int clientPort;
-    static int presentPeer;
+    public static ServerSocket socket=null;
+    public static Thread thread;
+    public static String peerId;
+    public static Queue<DataParams> queue = new LinkedList<>();
+    public static Vector<Thread> serverThread=new Vector<>();
+    public  static Vector<Thread> peerThread=new Vector<>();
     public static void main(String args[]) throws Exception
     {
-        String peerId=args[0];
+         peerId=args[0];
        l =new Logger("Peer_"+peerId+".log");
+       boolean flag=false;
         try
         {
-            boolean flag=false;
+
             l.showLog(peerId+" is started");
             getConfigData();
             getPeerInfoDate();
             setPreferredNeighbours(peerId);
-            for(Map.Entry<String,RemotePeerInfo> hm: remotePeerInfoHashMap.entrySet() )
+            x:for(Map.Entry<String,RemotePeerInfo> hm: remotePeerInfoHashMap.entrySet() )
             {
-                RemotePeerInfo r=hm.getValue();
-                if(r.peerId.equals(peerId))
+                RemotePeerInfo r = hm.getValue();
+                if (r.peerId.equals(peerId))
                 {
-                    clientPort=Integer.parseInt(r.peerPort);
-                    presentPeer=r.peerPos;
+                    clientPort = Integer.parseInt(r.peerPort);
+
+
+                    if (r.hasFile)
+                    {
+                      flag=true;
+                      break x;
+                    }
                 }
-                if(r.)
             }
+            currentDataPayLoad=new PayLoadData();
+            currentDataPayLoad.initPayLoad(peerId,flag);
+            Thread t=new Thread(new DataController(peerId));
+            t.start();
+            if(flag)
+            {
+                try
+                {
+                    P2P.socket = new ServerSocket(clientPort);
+                    thread = new Thread(new Server(P2P.socket, peerId));
+                    thread.start();
+                }
+                catch (Exception ex)
+                {
+                   l.showLog(peerId+ " peer is getting an exception while starting the thread");
+                    l.closeLog();
+                    System.exit(0);
+                }
+            }
+            else
+            {
+                generatePeerFile();
+                for(Map.Entry<String,RemotePeerInfo> hm: remotePeerInfoHashMap.entrySet() )
+                {
+                    RemotePeerInfo remotePeerInfo=hm.getValue();
+                    if(Integer.parseInt(peerId)>Integer.parseInt(hm.getKey()))
+                    {
+                        Thread temp=new Thread(new PeerController(remotePeerInfo.getPeerAddress(),Integer.parseInt(remotePeerInfo.getPeerPort()),1,peerId));
+                        peerThread.add(temp);
+                        temp.start();
+                    }
+
+                }
+                try
+                {
+                    P2P.socket = new ServerSocket(clientPort);
+                    thread = new Thread(new Server(P2P.socket, peerId));
+                    thread.start();
+                }
+                catch (Exception ex)
+                {
+                    l.showLog(peerId+ " peer is getting an exception while starting the thread");
+                    l.closeLog();
+                    System.exit(0);
+                }
+
+            }
+
 
         }
         catch (Exception ex)
@@ -40,6 +99,28 @@ public class P2P
             l.showLog(ex.getMessage());
         }
 
+    }
+
+    private static void generatePeerFile()
+    {
+        try
+        {
+            File f=new File(peerId,Constants.fileName);
+            OutputStream fop=new FileOutputStream(f,true);
+            byte intialByte=0;
+            int i=0;
+            while(i<Constants.fileSize)
+            {
+                fop.write(intialByte);
+                i++;
+            }
+            fop.close();
+
+        }
+        catch (Exception e)
+        {
+            l.showLog("Error while creating intial dummy file for peer "+peerId);
+        }
     }
 
     private static void setPreferredNeighbours(String pId)
@@ -57,16 +138,15 @@ public class P2P
     private static void getPeerInfoDate() throws IOException {
         String configs;
         BufferedReader b = null;
-        int i=0;
+
         try
         {
-            b=new BufferedReader(new FileReader("PeerInfo.cfg"));
-            while(b.readLine()!=null)
+            b=new BufferedReader(new FileReader(Constants.PEERS_PATH));
+            while((configs=b.readLine())!=null)
             {
-                configs=b.readLine();
                 String[] line=configs.split(" ");
-                remotePeerInfoHashMap.put(line[0],new RemotePeerInfo(line[0],line[1],line[2],line[3].equals("1"),i));
-                i++;
+                remotePeerInfoHashMap.put(line[0],new RemotePeerInfo(line[0],line[1],line[2],line[3].equals("1")));
+
             }
         }
         catch (Exception ex)
@@ -84,10 +164,10 @@ public class P2P
         BufferedReader b = null;
         try
         {
-             b=new BufferedReader(new FileReader("CommonConfig.cfg"));
-            while(b.readLine()!=null)
+             b=new BufferedReader(new FileReader(Constants.COMMON_CONFIG_PATH));
+            while((configs=b.readLine())!=null)
             {
-                configs=b.readLine();
+
                 String[] line=configs.split(" ");
                 if(line[0].trim().equals("NumberOfPreferredNeighbors"))
                 {
@@ -123,5 +203,13 @@ public class P2P
         {
             b.close();
         }
+    }
+    public static synchronized DataParams removeDataFromQueue(){
+        DataParams dp = null;
+        if(queue.isEmpty()){}
+        else {
+            dp = queue.remove();
+        }
+        return dp;
     }
 }
