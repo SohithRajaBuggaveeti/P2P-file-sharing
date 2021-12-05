@@ -1,5 +1,6 @@
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Handshake extends Constants
 {
@@ -178,6 +179,64 @@ public class Handshake extends Constants
         System.out.println(e.getMessage());
         }
 
+    }
+    public static Handshake byteToHandShake(byte[] b)
+    {
+
+        byte[] mheader;
+        byte[] mpeerId;
+        Handshake h;
+        if(b.length!=Constants.sizeoOfHandShakeMessage)
+        {
+            P2P.l.showLog("INVALID length of HandShake Message");
+            System.exit(0);
+        }
+        h=new Handshake();
+        mheader=new byte[Constants.sizeOfHeader];
+        mpeerId=new byte[Constants.sizeOfPeerId];
+        System.arraycopy(b,0,mheader,0,Constants.sizeOfHeader);
+        System.arraycopy(b,Constants.sizeOfHeader+Constants.sizeofZerobits,mpeerId,0,Constants.sizeOfPeerId);
+        h.setHandShakeMessageHeader(mheader);
+        h.setHandShakeMessagepeerId(mpeerId);
+        return h;
+    }
+    public  static byte[] handShakeToArray(Handshake handshake)
+    {
+        byte[] m=new byte[Constants.sizeoOfHandShakeMessage];
+
+
+            if(handshake.getHandShakeHeader().length()>Constants.sizeOfHeader||handshake.getHandShakeHeader()==null||handshake.getHandShakeHeader().length()==0)
+            {
+                P2P.l.showLog("HandShake header not VALID");
+                System.exit(0);
+            }
+            else
+            {
+                System.arraycopy(handshake.getHandShakeHeader().getBytes(StandardCharsets.UTF_8),0,m,0,handshake.getHandShakeHeader().length());
+
+
+            }
+        if(handshake.getZeroBits()==null || handshake.getZeroBits().isEmpty()||handshake.getZeroBits().length()>Constants.sizeofZerobits)
+        {
+            P2P.l.showLog("INVALID Zero bits");
+            System.exit(0);
+        }
+        else
+        {
+            System.arraycopy(handshake.getZeroBits().getBytes(StandardCharsets.UTF_8),0,m,Constants.sizeOfHeader,Constants.sizeofZerobits-1);
+
+
+        }
+        if( (""+handshake.getPeerId()).length()>Constants.sizeOfPeerId)
+        {
+            P2P.l.showLog("INVALID Peer bits");
+            System.exit(0);
+        }
+        else
+        {
+           System.arraycopy((handshake.getPeerId()+"").getBytes(StandardCharsets.UTF_8),0,m,Constants.sizeOfHeader+Constants.sizeofZerobits,Constants.sizeOfPeerId);
+        }
+        return m;
     }
 
 }

@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.Date;
 
 public class RemotePeerInfo implements Comparator<RemotePeerInfo>
 {
@@ -17,6 +18,13 @@ public class RemotePeerInfo implements Comparator<RemotePeerInfo>
     public int peerIndex;
     public int isCompleted = 0;
     public int isHandShake = 0;
+    public Date startTime;
+    public Date finishTime;
+
+    public RemotePeerInfo() {
+
+    }
+
     public String getPeerId() {
         return peerId;
     }

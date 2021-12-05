@@ -188,32 +188,37 @@ public class PayLoadData
         }
         return pc;
     }
-    public synchronized  void updatePayLoad(Payloadpiece p, String pId ) throws IOException {
+    public synchronized  void updatePayLoad(Payloadpiece p, String pId )  {
         if(P2P.currentDataPayLoad.pieceData[p.pindx].hasPiece==1)
         {
             P2P.l.showLog(pId+" This piece already exists");
         }
         else
         {
-            byte[] writeData;
-            int offset=p.pindx*Constants.pieceSize;
-            File f=new File(P2P.peerId,Constants.fileName);
-            RandomAccessFile r=new RandomAccessFile(f,"rw");
-            writeData=p.piece;
-            r.seek(offset);
-            r.write(writeData);
-            r.close();
-            this.pieceData[p.pindx].setHasPiece(1);
-            this.pieceData[p.pindx].setSenderpId(pId);
-            P2P.l.showLog(
-                    P2P.peerId+" Peer has downloaded the piece "+p.pindx+" from peer "+pId+ " Now it has "+ P2P.currentDataPayLoad.avaliablePieces()+" pieces");
-            if(P2P.currentDataPayLoad.hasAllPieces())
+            try {
+                byte[] writeData;
+                int offset = p.pindx * Constants.pieceSize;
+                File f = new File(P2P.peerId, Constants.fileName);
+                RandomAccessFile r = new RandomAccessFile(f, "rw");
+                writeData = p.piece;
+                r.seek(offset);
+                r.write(writeData);
+                r.close();
+                this.pieceData[p.pindx].setHasPiece(1);
+                this.pieceData[p.pindx].setSenderpId(pId);
+                P2P.l.showLog(
+                        P2P.peerId + " Peer has downloaded the piece " + p.pindx + " from peer " + pId + " Now it has " + P2P.currentDataPayLoad.avaliablePieces() + " pieces");
+                if (P2P.currentDataPayLoad.hasAllPieces()) {
+                    P2P.remotePeerInfoHashMap.get(P2P.peerId).isInterested = 0;
+                    P2P.remotePeerInfoHashMap.get(P2P.peerId).isCompleted = 1;
+                    P2P.remotePeerInfoHashMap.get(P2P.peerId).isChoked = 0;
+                    updatePeerConfig(P2P.peerId);
+                    P2P.l.showLog(P2P.peerId + " has completed downloading the file!!!");
+                }
+            }
+            catch (Exception ex)
             {
-                P2P.remotePeerInfoHashMap.get(P2P.peerId).isInterested=0;
-                P2P.remotePeerInfoHashMap.get(P2P.peerId).isCompleted=1;
-                P2P.remotePeerInfoHashMap.get(P2P.peerId).isChoked=0;
-                updatePeerConfig(P2P.peerId);
-                P2P.l.showLog(P2P.peerId+" has completed downloading the file!!!");
+                P2P.l.showLog(ex.getMessage());
             }
         }
     }
@@ -247,6 +252,7 @@ public class PayLoadData
             System.out.println(ex.getMessage());
         }
     }
+
 }
 
 
