@@ -52,7 +52,7 @@ public class P2P
             }
             currentDataPayLoad=new PayLoadData();
             currentDataPayLoad.initPayLoad(peerId,flag);
-            Thread t=new Thread(new DataController(peerId));
+            Thread t=new Thread(new MessageProcessor(peerId));
             t.start();
             if(flag)
             {
@@ -77,7 +77,8 @@ public class P2P
                     RemotePeerInfo remotePeerInfo=hm.getValue();
                     if(Integer.parseInt(peerId)>Integer.parseInt(hm.getKey()))
                     {
-                        Thread temp=new Thread(new PeerController(remotePeerInfo.getPeerAddress(),Integer.parseInt(remotePeerInfo.getPeerPort()),1,peerId));
+                        PeerController p=new PeerController(remotePeerInfo.getPeerAddress(),Integer.parseInt(remotePeerInfo.getPeerPort()),1, peerId);
+                        Thread temp=new Thread(p);
                         peerThread.add(temp);
                         temp.start();
                     }
@@ -100,8 +101,8 @@ public class P2P
             }
             initializePreferredNeighbors();
             initializeUnChokedNeighbors();
-              Thread clientThread=new Thread();
-            Thread messageProcessor=new Thread();
+              Thread clientThread=thread;
+            Thread messageProcessor=t;
             while(true) {
                 finishedFlag = isCompleted();
                 if (finishedFlag) {
@@ -149,12 +150,6 @@ public class P2P
         }
     }
 
-
-        
-        
-
-   
-
     private static void generatePeerFile()
     {
         try
@@ -181,11 +176,9 @@ public class P2P
     {
         for(Map.Entry<String,RemotePeerInfo> hm: remotePeerInfoHashMap.entrySet() )
         {
-
-         if(!hm.getKey().equals(pId))
-         {
-             preferredNeighboursInfoHashMap.put(hm.getKey(), hm.getValue());
-         }
+            if (!hm.getKey().equals(pId)) {
+                preferredNeighboursInfoHashMap.put(hm.getKey(), hm.getValue());
+            }
         }
     }
 

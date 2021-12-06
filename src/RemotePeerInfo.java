@@ -74,7 +74,7 @@ public class RemotePeerInfo implements Comparator<RemotePeerInfo>
         peerAddress = pAddress;
         peerPort = pPort;
         hasFile=hFile;
-
+        payloadData =new PayLoadData();
     }
     public int compareTo(RemotePeerInfo remotePeerInfo)
     {

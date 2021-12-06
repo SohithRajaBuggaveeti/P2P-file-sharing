@@ -23,12 +23,12 @@ public class PeerController implements Runnable
         {
             if(this.sessionType !=  noofActiveSessions)
             {
+                updatePeersData(messageHandShakeArray);
                 if(connectWithPeer())
                 {
                     throw  new Exception("Failed to connect with : "+this.currentpId);
                 }
                 P2P.l.showLog("HandShake has been sent to "+ this.remotepId);
-                 updatePeersData(messageHandShakeArray);
                 P2P.remotePeerInfoHashMap.get(remotepId).state=2;
 
             }
@@ -138,8 +138,8 @@ public class PeerController implements Runnable
         }
         try
         {
-            ip=this.socket.getInputStream();
-            op=this.socket.getOutputStream();
+            ip=socket.getInputStream();
+            op=socket.getOutputStream();
         }
         catch (IOException e) {
             P2P.l.showLog(this.currentpId+" error occurred when trying to get Data.");
@@ -153,7 +153,7 @@ public class PeerController implements Runnable
         }
         catch (Exception ex)
         {
-            P2P.l.showLog("Sending HanShake Failed.....");
+            P2P.l.showLog("Sending HandShake Failed.....");
             return true;
         }
         return false;

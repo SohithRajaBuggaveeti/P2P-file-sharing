@@ -48,6 +48,16 @@ public class Handshake extends Constants
     private String handShakeHeader;
     private String zeroBits;
     private int k;
+
+    public byte[] getHandShakeHeaderBytes() {
+        return handShakeHeaderBytes;
+    }
+
+    public void setHandShakeHeaderBytes(byte[] handShakeHeaderBytes) {
+        this.handShakeHeaderBytes = handShakeHeaderBytes;
+    }
+
+    private byte[] handShakeHeaderBytes=new byte[32];
     Handshake()
     {
 
@@ -60,6 +70,7 @@ public class Handshake extends Constants
         this.handShakeHeader=Constants.handshakeHeader;
         this.zeroBits=Constants.zeroBits;
         this.k=0;
+        this.handShakeHeaderBytes=handShakeHeader.getBytes(StandardCharsets.UTF_8);
     }
 
     public void generateHandShake()
@@ -213,8 +224,6 @@ public class Handshake extends Constants
             else
             {
                 System.arraycopy(handshake.getHandShakeHeader().getBytes(StandardCharsets.UTF_8),0,m,0,handshake.getHandShakeHeader().length());
-
-
             }
         if(handshake.getZeroBits()==null || handshake.getZeroBits().isEmpty()||handshake.getZeroBits().length()>Constants.sizeofZerobits)
         {
