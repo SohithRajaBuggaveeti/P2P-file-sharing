@@ -30,7 +30,7 @@ public class Constants {
         for(int j=0;j<4;j++)
         {
             int s=(3-j)*8;
-            res+=(int)Math.pow((data[j+offset]&0x000000FF),s);
+            res+=(data[j + offset] & 0x000000FF) << s;
         }
         return res;
     }

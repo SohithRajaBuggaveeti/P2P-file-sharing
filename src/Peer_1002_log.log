@@ -1,0 +1,98 @@
+12/06/2021 01:29:12 Peer 1002 is started
+12/06/2021 01:29:16 Peer 1002 makes a connection with peer 1001
+12/06/2021 01:29:16 Peer 1001 has received a handshake message from 1002
+12/06/2021 01:29:16 Peer HandShake has been sent to 1001
+12/06/2021 01:29:16 Peer [1002] is sending an 'interested' message to Peer [1001]
+12/06/2021 01:29:16 Peer [1002] is UNCHOKED by Peer [1001]
+12/06/2021 01:29:17 Peer 1002 Peer has downloaded the piece 0 from peer 1001 Now it has 1 pieces
+12/06/2021 01:29:17 Peer 1002 Peer has downloaded the piece 1 from peer 1001 Now it has 2 pieces
+12/06/2021 01:29:18 Peer 1002 Peer has downloaded the piece 2 from peer 1001 Now it has 3 pieces
+12/06/2021 01:29:18 Peer 1002 Peer has downloaded the piece 3 from peer 1001 Now it has 4 pieces
+12/06/2021 01:29:19 Peer 1002 Peer has downloaded the piece 4 from peer 1001 Now it has 5 pieces
+12/06/2021 01:29:20 Peer 1002 Peer has downloaded the piece 5 from peer 1001 Now it has 6 pieces
+12/06/2021 01:29:20 Peer 1002 Peer has downloaded the piece 6 from peer 1001 Now it has 7 pieces
+12/06/2021 01:29:21 Peer 1002 Peer has downloaded the piece 7 from peer 1001 Now it has 8 pieces
+12/06/2021 01:29:21 Peer 1002 Peer has downloaded the piece 8 from peer 1001 Now it has 9 pieces
+12/06/2021 01:29:22 Peer 1002 Peer has downloaded the piece 9 from peer 1001 Now it has 10 pieces
+12/06/2021 01:29:22 Peer 1002 Peer has downloaded the piece 10 from peer 1001 Now it has 11 pieces
+12/06/2021 01:29:23 Peer 1002 Peer has downloaded the piece 11 from peer 1001 Now it has 12 pieces
+12/06/2021 01:29:23 Peer TCP connection with peer is established
+12/06/2021 01:29:23 Peer 1002 makes a connection with peer 1003
+12/06/2021 01:29:23 Peer 1003 has received a handshake message from 1002
+12/06/2021 01:29:23 Peer HandShake has been sent to 1003
+12/06/2021 01:29:23 Peer 1002 Peer has downloaded the piece 12 from peer 1001 Now it has 13 pieces
+12/06/2021 01:29:23 Peer [1002] received the 'bitfield' message from Peer [1003]
+12/06/2021 01:29:23 Peer [1002] is sending 'bitfield' message to Peer [1003]
+12/06/2021 01:29:24 Peer [1002] received the 'interested' message from Peer [1003]
+12/06/2021 01:29:24 Peer [1002] is sending 'unchoke' message to Peer [1003]
+12/06/2021 01:29:24 Peer 1002 Peer has downloaded the piece 13 from peer 1001 Now it has 14 pieces
+12/06/2021 01:29:24 Peer [1002] is sending 'have' message to Peer [1003]
+12/06/2021 01:29:24 Peer [1002] received the 'interested' message from Peer [1003]
+12/06/2021 01:29:24 Peer [1002] is sending 'unchoke' message to Peer [1003]
+12/06/2021 01:29:24 Peer 1002 Peer has downloaded the piece 14 from peer 1001 Now it has 15 pieces
+12/06/2021 01:29:24 Peer [1002] is sending 'have' message to Peer [1003]
+12/06/2021 01:29:25 Peer [1002] received the 'interested' message from Peer [1003]
+12/06/2021 01:29:25 Peer [1002] is sending 'unchoke' message to Peer [1003]
+12/06/2021 01:29:25 Peer 1002 Peer has downloaded the piece 15 from peer 1001 Now it has 16 pieces
+12/06/2021 01:29:25 Peer [1002] is sending 'have' message to Peer [1003]
+12/06/2021 01:29:25 Peer [1002] received the 'interested' message from Peer [1003]
+12/06/2021 01:29:25 Peer [1002] is sending 'unchoke' message to Peer [1003]
+12/06/2021 01:29:25 Peer 1002 Peer has downloaded the piece 16 from peer 1001 Now it has 17 pieces
+12/06/2021 01:29:26 Peer [1002] is sending a PIECE message for piece [2] to Peer [1003]
+12/06/2021 01:29:26 Peer 1002 Peer has downloaded the piece 17 from peer 1001 Now it has 18 pieces
+12/06/2021 01:29:26 Peer [1002] is sending a PIECE message for piece [3] to Peer [1003]
+12/06/2021 01:29:26 Peer 1002 Peer has downloaded the piece 18 from peer 1001 Now it has 19 pieces
+12/06/2021 01:29:27 Peer [1002] is sending a PIECE message for piece [4] to Peer [1003]
+12/06/2021 01:29:27 Peer 1002 Peer has downloaded the piece 19 from peer 1001 Now it has 20 pieces
+12/06/2021 01:29:27 Peer [1002] is sending a PIECE message for piece [5] to Peer [1003]
+12/06/2021 01:29:27 Peer 1002 Peer has downloaded the piece 20 from peer 1001 Now it has 21 pieces
+12/06/2021 01:29:28 Peer [1002] is sending a PIECE message for piece [6] to Peer [1003]
+12/06/2021 01:29:28 Peer 1002 Peer has downloaded the piece 21 from peer 1001 Now it has 22 pieces
+12/06/2021 01:29:28 Peer [1002] is sending a PIECE message for piece [7] to Peer [1003]
+12/06/2021 01:29:28 Peer 1002 Peer has downloaded the piece 22 from peer 1001 Now it has 23 pieces
+12/06/2021 01:29:29 Peer [1002] is sending a PIECE message for piece [8] to Peer [1003]
+12/06/2021 01:29:29 Peer 1002 Peer has downloaded the piece 23 from peer 1001 Now it has 24 pieces
+12/06/2021 01:29:29 Peer [1002] is sending a PIECE message for piece [9] to Peer [1003]
+12/06/2021 01:29:29 Peer 1002 Peer has downloaded the piece 24 from peer 1001 Now it has 25 pieces
+12/06/2021 01:29:30 Peer [1002] is sending a PIECE message for piece [10] to Peer [1003]
+12/06/2021 01:29:30 Peer 1002 Peer has downloaded the piece 25 from peer 1001 Now it has 26 pieces
+12/06/2021 01:29:30 Peer [1002] is sending a PIECE message for piece [11] to Peer [1003]
+12/06/2021 01:29:30 Peer 1002 Peer has downloaded the piece 26 from peer 1001 Now it has 27 pieces
+12/06/2021 01:29:31 Peer [1002] is sending a PIECE message for piece [12] to Peer [1003]
+12/06/2021 01:29:31 Peer 1002 Peer has downloaded the piece 27 from peer 1001 Now it has 28 pieces
+12/06/2021 01:29:31 Peer [1002] is sending a PIECE message for piece [13] to Peer [1003]
+12/06/2021 01:29:31 Peer 1002 Peer has downloaded the piece 28 from peer 1001 Now it has 29 pieces
+12/06/2021 01:29:32 Peer [1002] is sending a PIECE message for piece [14] to Peer [1003]
+12/06/2021 01:29:32 Peer 1002 Peer has downloaded the piece 29 from peer 1001 Now it has 30 pieces
+12/06/2021 01:29:32 Peer TCP connection with peer is established
+12/06/2021 01:29:32 Peer 1002 makes a connection with peer 1004
+12/06/2021 01:29:32 Peer 1004 has received a handshake message from 1002
+12/06/2021 01:29:32 Peer HandShake has been sent to 1004
+12/06/2021 01:29:32 Peer [1002] is sending a PIECE message for piece [15] to Peer [1003]
+12/06/2021 01:29:32 Peer 1002 Peer has downloaded the piece 30 from peer 1001 Now it has 31 pieces
+12/06/2021 01:29:32 Peer [1002] received the 'bitfield' message from Peer [1004]
+12/06/2021 01:29:32 Peer [1002] is sending 'bitfield' message to Peer [1004]
+12/06/2021 01:29:33 Peer 1002 Peer has downloaded the piece 31 from peer 1001 Now it has 32 pieces
+12/06/2021 01:29:33 Peer [1002] received the 'interested' message from Peer [1004]
+12/06/2021 01:29:33 Peer [1002] is sending 'unchoke' message to Peer [1004]
+12/06/2021 01:29:33 Peer 1002 Peer has downloaded the piece 32 from peer 1001 Now it has 33 pieces
+12/06/2021 01:29:33 Peer [1002] is sending 'have' message to Peer [1004]
+12/06/2021 01:29:34 Peer 1002 Peer has downloaded the piece 33 from peer 1001 Now it has 34 pieces
+12/06/2021 01:29:34 Peer [1002] received the 'interested' message from Peer [1004]
+12/06/2021 01:29:34 Peer [1002] is sending 'unchoke' message to Peer [1004]
+12/06/2021 01:29:34 Peer 1002 Peer has downloaded the piece 34 from peer 1001 Now it has 35 pieces
+12/06/2021 01:29:34 Peer [1002] is sending a PIECE message for piece [1] to Peer [1004]
+12/06/2021 01:29:35 Peer 1002 Peer has downloaded the piece 35 from peer 1001 Now it has 36 pieces
+12/06/2021 01:29:35 Peer [1002] is sending a PIECE message for piece [2] to Peer [1004]
+12/06/2021 01:29:35 Peer 1002 Peer has downloaded the piece 36 from peer 1001 Now it has 37 pieces
+12/06/2021 01:29:35 Peer [1002] is sending a PIECE message for piece [3] to Peer [1004]
+12/06/2021 01:29:36 Peer All peers have completed downloading the file.
+12/06/2021 01:29:36 Peer 1002 Peer has downloaded the piece 37 from peer 1001 Now it has 38 pieces
+12/06/2021 01:29:36 Peer [1002] is sending a PIECE message for piece [4] to Peer [1004]
+12/06/2021 01:29:36 Peer 1002 Peer has downloaded the piece 38 from peer 1001 Now it has 39 pieces
+12/06/2021 01:29:36 Peer [1002] is sending a PIECE message for piece [5] to Peer [1004]
+12/06/2021 01:29:37 Peer 1002 Peer has downloaded the piece 39 from peer 1001 Now it has 40 pieces
+12/06/2021 01:29:37 Peer [1002] is sending a PIECE message for piece [6] to Peer [1004]
+12/06/2021 01:29:37 Peer 1002 Peer has downloaded the piece 40 from peer 1001 Now it has 41 pieces
+12/06/2021 01:29:37 Peer [1002] is sending a PIECE message for piece [7] to Peer [1004]
+12/06/2021 01:29:38 Peer [1002] Peer process is exiting

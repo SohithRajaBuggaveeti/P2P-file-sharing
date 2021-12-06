@@ -213,7 +213,7 @@ public class PayLoadData
                     P2P.remotePeerInfoHashMap.get(P2P.peerId).isCompleted = 1;
                     P2P.remotePeerInfoHashMap.get(P2P.peerId).isChoked = 0;
                     updatePeerConfig(P2P.peerId);
-                    P2P.l.showLog(P2P.peerId + " has completed downloading the file!!!");
+                    // P2P.l.showLog(P2P.peerId + " has completed downloading the file!!!");
                 }
             }
             catch (Exception ex)

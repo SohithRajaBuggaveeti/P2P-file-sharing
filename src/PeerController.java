@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class PeerController implements Runnable
 {
@@ -38,10 +39,10 @@ public class PeerController implements Runnable
                 {
                     throw  new Exception("Failed to connect with : "+this.currentpId);
                 }
-                P2P.l.showLog("HandShake has been sent to "+ this.remotepId);
                 updatePeersData(messageHandShakeArray);
+                P2P.l.showLog("HandShake has been sent to "+ this.remotepId);
                 P2P.remotePeerInfoHashMap.get(remotepId).state=8;
-                MessageData md=new MessageData(Constants.bitField,P2P.currentDataPayLoad.encodeData());
+                MessageData md=new MessageData(Constants.bitField, P2P.currentDataPayLoad.encodeData());
                 op.write(MessageData.convertDataToByteArray(md));
             }
             x:while (true)
@@ -53,11 +54,11 @@ public class PeerController implements Runnable
                 }
                 dataLength=new byte[Constants.sizeOfMessage];
                 dataType=new byte[Constants.typeOfMessage];
+                System.arraycopy(bufferedMessage,0,dataLength,0,Constants.sizeOfMessage);
+                System.arraycopy(bufferedMessage,Constants.sizeOfMessage,dataType,0,Constants.typeOfMessage);
                 MessageData md=new MessageData();
                 md.setDataLength(dataLength);
                 md.setDataType(dataType);
-                System.arraycopy(bufferedMessage,0,dataLength,0,Constants.sizeOfMessage);
-                System.arraycopy(bufferedMessage,Constants.sizeOfMessage,dataType,0,Constants.typeOfMessage);
                 String s="0 1 2 3";
                 if(s.contains(md.getDataType()))
                 {
@@ -96,10 +97,11 @@ public class PeerController implements Runnable
         x:while(1==1)
         {
             ip.read(hArray);
-            Handshake h=Handshake.byteToHandShake(hArray);
-            if(h.getHandShakeHeader().equals(Constants.handshakeHeader))
+            String s = new String(hArray, StandardCharsets.UTF_8);
+            // Handshake h = new Handshake.byteToHandShake(hArray);
+            if(s.substring(0, 18).equals(Constants.handshakeHeader))
             {
-                remotepId=h.getPeerId()+"";
+                remotepId=s.substring(s.length()-4, s.length());
                 P2P.l.showLog(this.currentpId+" makes a connection with peer "+this.remotepId);
                 P2P.l.showLog(this.remotepId+" has received a handshake message from "+this.currentpId);
                 P2P.peerData.put(this.remotepId,this.socket);

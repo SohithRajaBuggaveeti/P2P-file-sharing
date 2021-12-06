@@ -232,18 +232,18 @@ public class Handshake extends Constants
         }
         else
         {
-            System.arraycopy(handshake.getZeroBits().getBytes(StandardCharsets.UTF_8),0,m,Constants.sizeOfHeader,Constants.sizeofZerobits-1);
+            System.arraycopy(handshake.getZeroBits().getBytes(StandardCharsets.UTF_8),0,m,Constants.sizeOfHeader,Constants.sizeofZerobits);
 
 
         }
-        if( (""+handshake.getPeerId()).length()>Constants.sizeOfPeerId)
+        if( (String.valueOf(handshake.getPeerId())).length()>Constants.sizeOfPeerId)
         {
             P2P.l.showLog("INVALID Peer bits");
             System.exit(0);
         }
         else
         {
-           System.arraycopy((handshake.getPeerId()+"").getBytes(StandardCharsets.UTF_8),0,m,Constants.sizeOfHeader+Constants.sizeofZerobits,Constants.sizeOfPeerId);
+           System.arraycopy(String.valueOf(handshake.getPeerId()).getBytes(StandardCharsets.UTF_8),0,m,Constants.sizeOfHeader+Constants.sizeofZerobits,Constants.sizeOfPeerId);
         }
         return m;
     }

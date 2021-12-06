@@ -33,8 +33,8 @@ public class P2P
 
             l.showLog(peerId+" is started");
             getConfigData();
-            getPeerInfoDate();
-            setPreferredNeighbours(peerId);
+            getPeerInfoDate();            
+            initializePreferredNeighbours();
             x:for(Map.Entry<String,RemotePeerInfo> hm: remotePeerInfoHashMap.entrySet() )
             {
                 RemotePeerInfo r = hm.getValue();

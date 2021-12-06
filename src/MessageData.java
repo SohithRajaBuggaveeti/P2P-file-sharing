@@ -17,8 +17,7 @@ public class MessageData {
     MessageData(int n) {
         try {
             if ((n == Constants.choke) || (n == Constants.unChoke) || (n == Constants.intersted) || (n == Constants.notInterested)) {
-                this.dataType = ("" + n);
-                this.dataArray = this.dataType.getBytes(StandardCharsets.UTF_8);
+                this.setDataType("" + n);
                 this.payLoadArray = null;
                 this.lengthOfMessage = 1;
                 this.dataLength = this.lengthOfMessage + "";
@@ -52,6 +51,7 @@ public class MessageData {
                 }
                 this.payLoadArray = arr;
             }
+            this.setDataType(""+n);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

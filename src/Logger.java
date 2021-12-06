@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +11,10 @@ public class Logger
     static OutputStreamWriter writer;
     Logger(String fileName) throws Exception
     {
-        file=new FileOutputStream(fileName);
+        File dir = new File("logs");
+        dir.mkdir();
+        File logsFile = new File("logs", fileName);
+        file=new FileOutputStream("logs\\"+fileName);
         writer=new OutputStreamWriter(file, StandardCharsets.UTF_8);
     }
     public void printLog(String s)

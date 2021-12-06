@@ -1,0 +1,54 @@
+12/06/2021 01:29:29 Peer 1004 is started
+12/06/2021 01:29:32 Peer 1004 makes a connection with peer 1003
+12/06/2021 01:29:32 Peer 1003 has received a handshake message from 1004
+12/06/2021 01:29:32 Peer HandShake has been sent to 1003
+12/06/2021 01:29:32 Peer 1004 makes a connection with peer 1002
+12/06/2021 01:29:32 Peer 1002 has received a handshake message from 1004
+12/06/2021 01:29:32 Peer 1004 makes a connection with peer 1001
+12/06/2021 01:29:32 Peer HandShake has been sent to 1002
+12/06/2021 01:29:32 Peer 1001 has received a handshake message from 1004
+12/06/2021 01:29:32 Peer HandShake has been sent to 1001
+12/06/2021 01:29:33 Peer [1004] is sending an 'interested' message to Peer [1002]
+12/06/2021 01:29:33 Peer [1004] is sending an 'interested' message to Peer [1003]
+12/06/2021 01:29:33 Peer [1004] is sending an 'interested' message to Peer [1001]
+12/06/2021 01:29:33 Peer [1004] is UNCHOKED by Peer [1002]
+12/06/2021 01:29:33 Peer [1004] is UNCHOKED by Peer [1001]
+12/06/2021 01:29:33 Peer [1004] is UNCHOKED by Peer [1003]
+12/06/2021 01:29:34 Peer [1004] received the 'have' message from Peer [1002]
+12/06/2021 01:29:34 Peer [1004] is sending an 'interested' message to Peer [1002]
+12/06/2021 01:29:34 Peer 1004 Peer has downloaded the piece 0 from peer 1001 Now it has 1 pieces
+12/06/2021 01:29:34 Peer [1004] received the 'have' message from Peer [1003]
+12/06/2021 01:29:34 Peer [1004] is sending an 'interested' message to Peer [1003]
+12/06/2021 01:29:34 Peer [1004] received the 'have' message from Peer [1003]
+12/06/2021 01:29:34 Peer [1004] is sending an 'interested' message to Peer [1003]
+12/06/2021 01:29:34 Peer [1004] is UNCHOKED by Peer [1002]
+12/06/2021 01:29:34 Peer 1004 Peer has downloaded the piece 1 from peer 1001 Now it has 2 pieces
+12/06/2021 01:29:34 Peer [1004] is UNCHOKED by Peer [1003]
+12/06/2021 01:29:35 Peer 1002 This piece already exists
+12/06/2021 01:29:35 Peer 1004 Peer has downloaded the piece 2 from peer 1001 Now it has 3 pieces
+12/06/2021 01:29:35 Peer 1003 This piece already exists
+12/06/2021 01:29:35 Peer 1002 This piece already exists
+12/06/2021 01:29:35 Peer 1004 Peer has downloaded the piece 3 from peer 1001 Now it has 4 pieces
+12/06/2021 01:29:35 Peer 1003 This piece already exists
+12/06/2021 01:29:36 Peer 1002 This piece already exists
+12/06/2021 01:29:36 Peer 1004 Peer has downloaded the piece 4 from peer 1001 Now it has 5 pieces
+12/06/2021 01:29:36 Peer 1003 This piece already exists
+12/06/2021 01:29:36 Peer 1002 This piece already exists
+12/06/2021 01:29:36 Peer 1004 Peer has downloaded the piece 5 from peer 1001 Now it has 6 pieces
+12/06/2021 01:29:36 Peer 1003 This piece already exists
+12/06/2021 01:29:37 Peer 1002 This piece already exists
+12/06/2021 01:29:37 Peer 1004 Peer has downloaded the piece 6 from peer 1001 Now it has 7 pieces
+12/06/2021 01:29:37 Peer 1003 This piece already exists
+12/06/2021 01:29:37 Peer All peers have completed downloading the file.
+12/06/2021 01:29:37 Peer 1002 This piece already exists
+12/06/2021 01:29:37 Peer 1004 Peer has downloaded the piece 7 from peer 1001 Now it has 8 pieces
+12/06/2021 01:29:37 Peer 1003 This piece already exists
+12/06/2021 01:29:38 Peer 1002 This piece already exists
+12/06/2021 01:29:38 Peer 1004 Peer has downloaded the piece 8 from peer 1001 Now it has 9 pieces
+12/06/2021 01:29:38 Peer 1003 This piece already exists
+12/06/2021 01:29:38 Peer Connection reset
+12/06/2021 01:29:38 Peer 1004 Peer has downloaded the piece 9 from peer 1001 Now it has 10 pieces
+12/06/2021 01:29:38 Peer 1003 This piece already exists
+12/06/2021 01:29:39 Peer 1004 Peer has downloaded the piece 10 from peer 1001 Now it has 11 pieces
+12/06/2021 01:29:39 Peer 1003 This piece already exists
+12/06/2021 01:29:39 Peer [1004] Peer process is exiting
