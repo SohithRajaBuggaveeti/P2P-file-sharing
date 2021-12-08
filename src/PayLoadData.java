@@ -142,12 +142,12 @@ public class PayLoadData
 
         for(int i=0;i<this.bSize;i++)
         {
-            if(this.pieceData[i].hasPiece==1)
+            if(this.pieceData[i].hasPiece==0)
             {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
 
     }
 
