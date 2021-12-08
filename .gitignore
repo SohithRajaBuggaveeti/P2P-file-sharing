@@ -2,4 +2,5 @@
 *.iml
 .vscode/
 .idea/
-out/
+out/*
+*.zip

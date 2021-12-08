@@ -14,7 +14,7 @@ public class Logger
         File dir = new File("logs");
         dir.mkdir();
         File logsFile = new File("logs", fileName);
-        file=new FileOutputStream("logs\\"+fileName);
+        file=new FileOutputStream("logs//"+fileName);
         writer=new OutputStreamWriter(file, StandardCharsets.UTF_8);
     }
     public void printLog(String s)

@@ -44,8 +44,7 @@ public class MessageProcessor implements Runnable
             int currentState = P2P.remotePeerInfoHashMap.get(runningPeerID).state;
             if(messageType.equals(""+Constants.have) && currentState != 14)
             {
-                // receive HAVE message
-                P2P.l.showLog(String.format("[%s] received the 'have' message from Peer [%s]", P2P.peerId, runningPeerID));
+                P2P.l.showLog(P2P.peerId+" got HAVE message from Peer "+ runningPeerID);
                 if(compareBitfield(message, runningPeerID)) {
                     sendInterestedPayload(P2P.peerData.get(runningPeerID), runningPeerID);
                     P2P.remotePeerInfoHashMap.get(runningPeerID).state = 9;
@@ -60,7 +59,7 @@ public class MessageProcessor implements Runnable
                 {
                     case 2:
                         if (messageType.equals(""+Constants.bitField)) {
-                            P2P.l.showLog(String.format("[%s] received the 'bitfield' message from Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog(P2P.peerId+" got BITFIELD message from Peer "+ runningPeerID);
                             sendBitFieldPayload(P2P.peerData.get(runningPeerID), runningPeerID);
                             P2P.remotePeerInfoHashMap.get(runningPeerID).state = 3;
                         }
@@ -68,16 +67,14 @@ public class MessageProcessor implements Runnable
 
                     case 3:
                         if (messageType.equals(""+Constants.notInterested)) {
-                            //receive NOT INTERESTED message
-                            P2P
-                                    .l.showLog(String.format("[%s] received the 'not interested' message from Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog( P2P.peerId+" got NOT INTERESTED message from Peer "+runningPeerID);
                             P2P.remotePeerInfoHashMap.get(runningPeerID).isInterested = 0;
                             P2P.remotePeerInfoHashMap.get(runningPeerID).state = 5;
                             P2P.remotePeerInfoHashMap.get(runningPeerID).isHandShake = 1;
                         }
                         else if (messageType.equals(""+Constants.intersted)) {
-                            // receive INTERESTED message
-                            P2P.l.showLog(String.format("[%s] received the 'interested' message from Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog(P2P.peerId+" got a REQUEST message to Peer "+ runningPeerID);
+                            P2P.l.showLog( P2P.peerId+" got INTERESTED message from Peer "+runningPeerID);
                             P2P.remotePeerInfoHashMap.get(runningPeerID).isInterested = 1;
                             P2P.remotePeerInfoHashMap.get(runningPeerID).isHandShake = 1;
 
@@ -122,13 +119,17 @@ public class MessageProcessor implements Runnable
 
                     case 9:
                         if (messageType.equals(""+Constants.choke)) {
-                            // receive CHOKED message
-                            P2P.l.showLog(String.format("[%s] is CHOKED by Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog( P2P.peerId+" got CHOKED by Peer "+runningPeerID);
                             P2P.remotePeerInfoHashMap.get(runningPeerID).state = 14;
                         }
                         else if (messageType.equals(""+Constants.unChoke)) {
-                            // receive UNCHOKED message
-                            P2P.l.showLog(String.format("[%s] is UNCHOKED by Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog( P2P.peerId+" got CHOKED by Peer "+runningPeerID);
+                            try {
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            P2P.l.showLog( P2P.peerId+" got UNCHOKED by Peer "+runningPeerID);
                             int initialMismatch = P2P.currentDataPayLoad.fetchFirstBitField(
                                     P2P.remotePeerInfoHashMap.get(runningPeerID).payloadData);
                             if(initialMismatch != -1) {
@@ -174,13 +175,13 @@ public class MessageProcessor implements Runnable
                             }
                         }
                         else if (messageType.equals(""+Constants.choke)) {
-                            P2P.l.showLog(String.format("[%s] is CHOKED by Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog( P2P.peerId+" got CHOKED by Peer "+runningPeerID);
                             P2P.remotePeerInfoHashMap.get(runningPeerID).state = 14;
                         }
                         break;
 
                     case 14:
-                        if (messageType.equals(Constants.have)) {
+                        if (messageType.equals(""+Constants.have)) {
                             if(compareBitfield(message,runningPeerID)) {
                                 sendInterestedPayload(P2P.peerData.get(runningPeerID), runningPeerID);
                                 P2P.remotePeerInfoHashMap.get(runningPeerID).state = 9;
@@ -191,7 +192,13 @@ public class MessageProcessor implements Runnable
                             }
                         }
                         else if (messageType.equals(""+Constants.unChoke)) {
-                            P2P.l.showLog(String.format("[%s] is UNCHOKED by Peer [%s]", P2P.peerId, runningPeerID));
+                            P2P.l.showLog( P2P.peerId+" got CHOKED by Peer "+runningPeerID);
+                            try {
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            P2P.l.showLog( P2P.peerId+" got UNCHOKED by Peer "+runningPeerID);
                             P2P.remotePeerInfoHashMap.get(runningPeerID).state = 14;
                         }
                         break;
@@ -222,20 +229,19 @@ public class MessageProcessor implements Runnable
         int numberOfBytesRead = 0;
         File currentFile = new File(P2P.peerId, Constants.fileName);
 
-        P2P.l.showLog(String.format("[%s] is sending a PIECE message for piece [%s] to Peer [%s]",
-                P2P.peerId, pieceIndex, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" is sending PIECE "+pieceIndex+" to Peer "+ remotePeerID);
         try {
             randomAccessFile = new RandomAccessFile(currentFile,"r");
             randomAccessFile.seek((long) pieceIndex *Constants.pieceSize);
             numberOfBytesRead = randomAccessFile.read(readBytes, 0, Constants.pieceSize);
         }
         catch (IOException ioException) {
-            P2P.l.showLog(String.format("[%s] error in reading the file: [%s]", P2P.peerId, ioException.toString()));
+            P2P.l.showLog(P2P.peerId+" has error in reading the file: "+ioException.toString());
         }
         if( numberOfBytesRead == 0)
-            P2P.l.showLog(String.format("[%s] Zero bytes read from the file", P2P.peerId));
+            P2P.l.showLog(P2P.peerId+" Zero bytes read from the file");
         else if (numberOfBytesRead < 0)
-            P2P.l.showLog(String.format("[%s] File could not be read properly.", P2P.peerId));
+            P2P.l.showLog(P2P.peerId+" File could not be read properly.");
 
         byte[] bytesBuffer = new byte[numberOfBytesRead + Constants.maxPieceLength];
         System.arraycopy(bytePieceIndex, 0, bytesBuffer, 0, Constants.maxPieceLength);
@@ -255,45 +261,43 @@ public class MessageProcessor implements Runnable
     }
 
     private void sendNotInterestedPayload(Socket serverSocket, String remotePeerID) {
-        P2P.l.showLog(String.format("[%s] is sending a 'not interested' message to Peer [%s]", P2P.peerId, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" sent a NOT INTERESTED message to Peer "+ remotePeerID);
         MessageData message =  new MessageData(Constants.notInterested);
         byte[] messageToByteArray = MessageData.convertDataToByteArray(message);
         sendMessage(serverSocket,messageToByteArray);
     }
 
     private void sendInterestedPayload(Socket serverSocket, String remotePeerID) {
-        P2P.l.showLog(String.format("[%s] is sending an 'interested' message to Peer [%s]", P2P.peerId, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" sent a REQUEST message to Peer "+ remotePeerID);
+        P2P.l.showLog(P2P.peerId+" sent a INTERESTED message to Peer "+ remotePeerID);
         MessageData message =  new MessageData(Constants.intersted);
         byte[] msgByte = MessageData.convertDataToByteArray(message);
         sendMessage(serverSocket,msgByte);
     }
 
     private void sendUnChokePayload(Socket serverSocket, String remotePeerID) {
-        P2P.l.showLog(String.format("[%s] is sending 'unchoke' message to Peer [%s]", P2P.peerId, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" sent a UNCHOKE message to Peer "+ remotePeerID);
         MessageData message = new MessageData(Constants.unChoke);
         byte[] messageToByteArray = MessageData.convertDataToByteArray(message);
         sendMessage(serverSocket,messageToByteArray);
     }
 
     private void sendChokePayload(Socket serverSocket, String remotePeerID) {
-        P2P
-                .l.showLog(String.format("[%s] is sending 'choke' message to Peer [%s]", P2P.peerId, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" sent a CHOKE message to Peer "+ remotePeerID);
         MessageData message = new MessageData(Constants.choke);
         byte[] messageToByteArray = MessageData.convertDataToByteArray(message);
         sendMessage(serverSocket,messageToByteArray);
     }
 
     private void sendBitFieldPayload(Socket serverSocket, String remotePeerID) {
-        P2P.l.showLog(String.format("[%s] is sending 'bitfield' message to Peer [%s]", P2P.peerId, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" sent a BITFIELD message to Peer "+ remotePeerID);
         byte[] encodedBitField = P2P.currentDataPayLoad.encodeData();
         MessageData message = new MessageData(+Constants.bitField, encodedBitField);
         sendMessage(serverSocket, MessageData.convertDataToByteArray(message));
     }
 
     private void sendHavePayload(Socket serverSocket, String remotePeerID) {
-
-        P2P
-                .l.showLog(String.format("[%s] is sending 'have' message to Peer [%s]", P2P.peerId, remotePeerID));
+        P2P.l.showLog(P2P.peerId+" sent a HAVE message to Peer "+ remotePeerID);
         byte[] encodedBitField = P2P.currentDataPayLoad.encodeData();
         MessageData message = new MessageData(Constants.have, encodedBitField);
         sendMessage(serverSocket, MessageData.convertDataToByteArray(message));

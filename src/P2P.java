@@ -141,10 +141,10 @@ public class P2P
             }
         }
         catch(Exception exception) {
-            l.showLog(String.format("[%s] Exception in ending : [%s]", peerId, exception.getMessage()));
+            l.showLog(String.format(peerId+" is ending with error : "+ exception.getMessage()));
         }
         finally {
-            l.showLog(String.format("[%s] Peer process is exiting", peerId));
+            l.showLog(String.format(peerId+" Peer is terimating."));
             l.closeLog();
             System.exit(0);
         }
@@ -355,12 +355,12 @@ public class P2P
                 }
             }
             if (!prefix.toString().equals(""))
-                l.showLog(String.format("[%s] has selected the preferred neighbors [%s]", P2P.peerId, prefix));
+                l.showLog( P2P.peerId+" has selected the preferred neighbors "+ prefix);
         }
     }
 
     private static void sendUnChokePayload(Socket serverSocket, String remotePeerID) {
-        l.showLog(String.format("[%s] is sending 'unchoke' message to Peer [%s]", peerId, remotePeerID));
+        l.showLog(peerId+" is sending UNCHOKE message to Peer "+ remotePeerID);
         MessageData message = new MessageData(Constants.unChoke);
         byte[] messageToByteArray = MessageData.convertDataToByteArray(message);
         sendMessage(serverSocket, messageToByteArray);
@@ -368,7 +368,7 @@ public class P2P
 
     private static void sendHavePayload(Socket socket, String remotePeerID) {
         byte[] encodedBitField = P2P.currentDataPayLoad.encodeData();
-        l.showLog(String.format("[%s] is sending 'have' message to Peer [%s]", peerId, remotePeerID));
+        l.showLog(peerId+" is sending HAVE message to Peer "+ remotePeerID);
         MessageData message = new MessageData(Constants.have, encodedBitField);
         sendMessage(socket, MessageData.convertDataToByteArray(message));
     }
@@ -405,8 +405,7 @@ public class P2P
                 RemotePeerInfo firstRemotePeer = remotePeersList.firstElement();
                 remotePeerInfoHashMap.get(firstRemotePeer.peerId).isOptUnchokedNeighbor = 1;
                 unchokedNeighboursTable.put(firstRemotePeer.peerId, remotePeerInfoHashMap.get(firstRemotePeer.peerId));
-                P2P.l.showLog(String.format("[%s] has the optimistically unchoked neighbor [%s]",
-                        P2P.peerId, firstRemotePeer.peerId));
+                P2P.l.showLog( P2P.peerId+" has the optimistically unchoked neighbor "+firstRemotePeer.peerId);
 
                 if (remotePeerInfoHashMap.get(firstRemotePeer.peerId).isChoked == 1) {
                     P2P.remotePeerInfoHashMap.get(firstRemotePeer.peerId).isChoked = 0;

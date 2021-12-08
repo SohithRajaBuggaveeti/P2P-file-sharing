@@ -20,7 +20,6 @@ public class Server implements Runnable
             {
                 remoteSocket=socket.accept();
                 thread=new Thread(new PeerController(this.peerId,remoteSocket,0));
-                P2P.l.showLog("TCP connection with peer is established");
                 P2P.serverThread.add(thread);
                 thread.start();
             }

@@ -207,13 +207,14 @@ public class PayLoadData
                 this.pieceData[p.pindx].setHasPiece(1);
                 this.pieceData[p.pindx].setSenderpId(pId);
                 P2P.l.showLog(
-                        P2P.peerId + " Peer has downloaded the piece " + p.pindx + " from peer " + pId + " Now it has " + P2P.currentDataPayLoad.avaliablePieces() + " pieces");
+                        P2P.peerId + " Peer has downloaded the piece " + p.pindx + " from peer " + pId + ". It now contains " + P2P.currentDataPayLoad.avaliablePieces() + " pieces");
                 if (P2P.currentDataPayLoad.hasAllPieces()) {
                     P2P.remotePeerInfoHashMap.get(P2P.peerId).isInterested = 0;
                     P2P.remotePeerInfoHashMap.get(P2P.peerId).isCompleted = 1;
                     P2P.remotePeerInfoHashMap.get(P2P.peerId).isChoked = 0;
                     updatePeerConfig(P2P.peerId);
-                    // P2P.l.showLog(P2P.peerId + " has completed downloading the file!!!");
+                    P2P.l.showLog(P2P.peerId + " has completed downloading the file!!!");
+                    P2P.l.showLog(P2P.peerId + " is sending NOT INTERESTED MESSAGE");
                 }
             }
             catch (Exception ex)

@@ -29,7 +29,8 @@ public class PeerController implements Runnable
                 {
                     throw  new Exception("Failed to connect with : "+this.currentpId);
                 }
-                P2P.l.showLog("HandShake has been sent to "+ this.remotepId);
+                P2P.l.showLog(this.currentpId+" is sending HandShake to "+ this.remotepId);                
+                P2P.l.showLog(this.currentpId+" makes a TCP connection with peer "+this.remotepId);
                 P2P.remotePeerInfoHashMap.get(remotepId).state=2;
 
             }
@@ -40,7 +41,7 @@ public class PeerController implements Runnable
                     throw  new Exception("Failed to connect with : "+this.currentpId);
                 }
                 updatePeersData(messageHandShakeArray);
-                P2P.l.showLog("HandShake has been sent to "+ this.remotepId);
+                P2P.l.showLog(this.currentpId+" is sending HandShake to "+ this.remotepId);
                 P2P.remotePeerInfoHashMap.get(remotepId).state=8;
                 MessageData md=new MessageData(Constants.bitField, P2P.currentDataPayLoad.encodeData());
                 op.write(MessageData.convertDataToByteArray(md));
@@ -102,8 +103,7 @@ public class PeerController implements Runnable
             if(s.substring(0, 18).equals(Constants.handshakeHeader))
             {
                 remotepId=s.substring(s.length()-4, s.length());
-                P2P.l.showLog(this.currentpId+" makes a connection with peer "+this.remotepId);
-                P2P.l.showLog(this.remotepId+" has received a handshake message from "+this.currentpId);
+                P2P.l.showLog(this.currentpId+" has received a handshake message from "+this.remotepId);
                 P2P.peerData.put(this.remotepId,this.socket);
                 break x;
             }
